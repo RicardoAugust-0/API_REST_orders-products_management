@@ -1,0 +1,16 @@
+{
+  "name": "api-gestao-produtos",
+  "version": "1.0.0",
+  "description": "Cadastrar e gerenciar produtos",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx nodemon"
+  },
+  "author": "Ricardo_Augusto",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.6"
+  }
+}

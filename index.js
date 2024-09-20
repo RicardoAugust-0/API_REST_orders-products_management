@@ -7,6 +7,15 @@ app.use(bodyParser.json());
 //Criando ARRAY para armazenar os valores dos produtos
 let products = [];
 
+// Validação - Coerência dos dados inseridos
+function dataValidation(product) {
+  if (typeof product.name !== "string" || typeof products.price !== "number") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // Requisição para adicionar produtos
 app.post("/products", (req, res) => {
   const { nome, descricao, preco, quantidade, peso, disponibilidade } =
@@ -20,14 +29,20 @@ app.post("/products", (req, res) => {
     peso,
     disponibilidade,
   };
-  const produtoExistente = products.find((product) => product.nome === nome);
-  if (produtoExistente) {
-    res.status(400).json({ message: "Produto já cadastrado." });
+
+  if (!dataValidation(newProduct)) {
+    return res.status(400).json({ message: "Dados inválidos" });
   } else {
-    products.push(newProduct);
-    res
-      .status(201)
-      .json({ message: "Produto cadastrado no sistema!", product: newProduct });
+    const productExists = products.find((product) => product.nome === nome);
+    if (productExists) {
+      res.status(400).json({ message: "Produto já cadastrado." });
+    } else {
+      products.push(newProduct);
+      res.status(201).json({
+        message: "Produto cadastrado no sistema!",
+        product: newProduct,
+      });
+    }
   }
 });
 
@@ -48,9 +63,13 @@ app.get("/products/:id", (req, res) => {
 // Requisitar todos os produtos
 app.get("/products", (req, res) => {
   const productsList = products;
-  res
-    .status(200)
-    .json({ message: "Lista de produtos:", products: productsList });
+  if (productsList == 0) {
+    res.status(404).json({ message: "Lista de produtos vazia" });
+  } else {
+    res
+      .status(200)
+      .json({ message: "Lista de produtos:", products: productsList });
+  }
 });
 
 // Atualizar algum produto
@@ -59,17 +78,26 @@ app.put("/products/:id", (req, res) => {
     req.body;
   const productId = parseInt(req.params.id);
   const product = products.find((product) => product.id === productId);
-  
+  const updatedProduct = products.find((product) => product.nome === nome);
+
   if (!product) {
     res.status(404).json({ message: "Produto não encontrado" });
+  } else if (!updatedProduct) {
+    res.status(400).json({ message: "Produto já cadastrado." });
   } else {
-    product.nome = nome;
-    product.descricao = descricao;
-    product.preco = preco;
-    product.quantidade = quantidade;
-    product.peso = peso;
-    product.disponibilidade = disponibilidade;
-    res.status(200).json({ message: "Produto atualizado!", product: product });
+    if (!dataValidation({ nome, preco })) {
+      res.status(400).json({ message: "Dados inválidos" });
+    } else {
+      product.nome = nome;
+      product.descricao = descricao;
+      product.preco = preco;
+      product.quantidade = quantidade;
+      product.peso = peso;
+      product.disponibilidade = disponibilidade;
+      res
+        .status(200)
+        .json({ message: "Produto atualizado!", product: product });
+    }
   }
 });
 

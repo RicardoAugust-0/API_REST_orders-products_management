@@ -8,17 +8,11 @@ app.use(bodyParser.json());
 let products = [];
 
 // Validação - Coerência dos dados inseridos
-function dataValidation(product) {
-  if (typeof product.name !== "string" || typeof products.price !== "number") {
-    return false;
-  } else {
-    return true;
-  }
-}
+const validations = require("./components/validations")
 
 // Requisição para adicionar produtos
 app.post("/products", (req, res) => {
-  const { nome, descricao, preco, quantidade, peso, disponibilidade } =
+  const { nome, descricao, preco, quantidade, peso, disponibilidade, validade } =
     req.body;
   const newProduct = {
     id: products.length + 1,
@@ -28,9 +22,10 @@ app.post("/products", (req, res) => {
     quantidade,
     peso,
     disponibilidade,
+    validade
   };
 
-  if (!dataValidation(newProduct)) {
+  if (!validations(newProduct)) {
     return res.status(400).json({ message: "Dados inválidos" });
   } else {
     const productExists = products.find((product) => product.nome === nome);
@@ -78,14 +73,11 @@ app.put("/products/:id", (req, res) => {
     req.body;
   const productId = parseInt(req.params.id);
   const product = products.find((product) => product.id === productId);
-  const updatedProduct = products.find((product) => product.nome === nome);
 
   if (!product) {
     res.status(404).json({ message: "Produto não encontrado" });
-  } else if (!updatedProduct) {
-    res.status(400).json({ message: "Produto já cadastrado." });
   } else {
-    if (!dataValidation({ nome, preco })) {
+    if (!validations({ nome, preco })) {
       res.status(400).json({ message: "Dados inválidos" });
     } else {
       product.nome = nome;

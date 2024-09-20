@@ -1,5 +1,3 @@
-function validations() {
-
 // Valida o nome do produto
 function dataValidationName(product) {
   if (typeof product.nome !== "string") {
@@ -8,7 +6,6 @@ function dataValidationName(product) {
     return true;
   }
 }
-/* export { dataValidationName }; */
 
 /* ---------------------------------------------- */
 // Valida o preço do produto
@@ -19,8 +16,7 @@ function dataValidationPrice(product) {
       return true;
     }
   }
-  /* export { dataValidationPrice }; */
-  
+
 /* ---------------------------------------------- */
 // Valida a quantidade do produto
   function dataValidationQuantity(product) {
@@ -30,7 +26,6 @@ function dataValidationPrice(product) {
       return true;
     }
   }
-  /* export { dataValidationQuantity }; */
 
 /* ---------------------------------------------- */
 // Valida o peso do produto
@@ -41,7 +36,6 @@ function dataValidationPrice(product) {
       return true;
     }
   }
-  /* export { dataValidationWeight }; */
 
 /* ---------------------------------------------- */
 // Valida se o produto tem disponibilidade ou não
@@ -52,13 +46,11 @@ function dataValidationPrice(product) {
       return true;
     }
   }
-  /* export { dataValidationDisponibility }; */
 
-  return {
-    dataValidationName,
-    dataValidationPrice,
-    dataValidationQuantity,
-    dataValidationWeight,
-    dataValidationDisponibility
-  };
-} export { validations };
+module.exports = {
+  dataValidationName,
+  dataValidationPrice,
+  dataValidationQuantity,
+  dataValidationWeight,
+  dataValidationDisponibility
+};

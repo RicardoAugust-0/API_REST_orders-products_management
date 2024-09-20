@@ -33,4 +33,4 @@ A documentação dos endpoints estará disponível em breve.
 Contribuições são sempre bem-vindas! Se você tiver alguma sugestão ou encontrar algum erro, por favor, abra uma issue ou faça um pull request.
 
 ## Autores
-- [Seu Nome](https://github.com/seu-usuario)
+- [Ricardo Augusto](https://github.com/RicardoAugust-0)

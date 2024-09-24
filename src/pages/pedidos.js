@@ -19,6 +19,10 @@ router.post("/orders", (req, res) => {
 
 TODO/* :Implemente a lógica para criar um pedido com base nos produtos selecionados pelo usuário. Criar um novo pedido deve incluir a lista de produtos selecionados e o valor total do pedido.*/
 
+TODO /* Valor total do produto se baseia na lógica  de que o valor total é a soma dos valores dos produtos selecionados.
+ Logo tenho que fazer pedidos * valor. */
+
+
   // Criamos um novo pedido
   const { quantity, adress, description } = req.body;
   const newOrder = {

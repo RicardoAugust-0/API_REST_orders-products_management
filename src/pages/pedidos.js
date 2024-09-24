@@ -17,12 +17,13 @@ router.post("/orders", (req, res) => {
   const {getProducts} = require('./produtos');
   const products = getProducts();
 
+TODO/* :Implemente a lógica para criar um pedido com base nos produtos selecionados pelo usuário. Criar um novo pedido deve incluir a lista de produtos selecionados e o valor total do pedido.*/
 
   // Criamos um novo pedido
   const { quantity, adress, description } = req.body;
   const newOrder = {
     id: orders.length + 1,
-    product,
+    products,
     quantity,
     adress,
     description,

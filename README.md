@@ -27,7 +27,17 @@ npm start
 ```
 
 ## Endpoints
-A documentação dos endpoints estará disponível em breve.
+### Produtos
+#### GET /produtos
+Retorna uma lista de todos os produtos.
+#### GET /produtos/:id
+Retorna um produto específico pelo ID.
+#### POST /produtos
+Cria um novo produto.
+#### PUT /produtos/:id
+Atualiza um produto específico pelo ID.
+#### DELETE /produtos/:id
+Deleta um produto específico pelo ID.
 
 ## Contribuição
 Contribuições são sempre bem-vindas! Se você tiver alguma sugestão ou encontrar algum erro, por favor, abra uma issue ou faça um pull request.

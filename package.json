@@ -2,7 +2,7 @@
   "name": "api-gestao-produtos",
   "version": "1.0.0",
   "description": "Cadastrar e gerenciar produtos",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "start": "npx nodemon"
   },

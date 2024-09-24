@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 let products = [];
 
 // Importando o módulo de validações para garantir a coerência dos dados
-const validations = require("./components/validations");
+const validations = require("./src/components/validations");
 
 // Definindo a rota para adicionar produtos
 app.post("/products", (req, res) => {

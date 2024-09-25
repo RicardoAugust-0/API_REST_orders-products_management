@@ -17,34 +17,34 @@ const validations = require("../components/validations");
 router.post("/products", (req, res) => {
   // Extrair os dados do corpo da requisição
   const {
-    nome,
-    descricao,
-    preco,
-    quantidade,
-    peso,
-    disponibilidade,
-    validade,
+    name,
+    description,
+    price,
+    quantity,
+    weight,
+    disponibility,
+    expirationDate,
   } = req.body;
 
   // Criar um novo produto com os dados recebidos
   const newProduct = {
     id: products.length + 1,
-    nome,
-    descricao,
-    preco,
-    quantidade,
-    peso,
-    disponibilidade,
-    validade,
+    name,
+    description,
+    price,
+    quantity,
+    weight,
+    disponibility,
+    expirationDate,
   };
 
   // Validações adicionais
-  if (preco <= 0) {
+  if (price <= 0) {
     return res.status(400).json({ message: 'Preço deve ser um número positivo' });
   }
 
-  if (quantidade <= 0) {
-    return res.status(400).json({ message: 'Quantidade deve ser um número inteiro positivo' });
+  if (quantity <= 0) {
+    return res.status(400).json({ message: 'quantity deve ser um número inteiro positivo' });
   }
 
   // Validar os dados do produto
@@ -62,12 +62,12 @@ router.post("/products", (req, res) => {
   // Verificar se o produto já existe
   const productExists = products.find((product) => {
     return (
-      product.nome === newProduct.nome &&
-      product.descricao === newProduct.descricao &&
-      product.preco === newProduct.preco &&
-      product.quantidade === newProduct.quantidade &&
-      product.peso === newProduct.peso &&
-      product.disponibilidade === newProduct.disponibilidade
+      product.name === newProduct.name &&
+      product.description === newProduct.description &&
+      product.price === newProduct.price &&
+      product.quantity === newProduct.quantity &&
+      product.weight === newProduct.weight &&
+      product.disponibility === newProduct.disponibility
     );
   });
 
@@ -81,8 +81,8 @@ router.post("/products", (req, res) => {
     // Formatatar o produto para exibição
     const formattedProduct = {
       ...newProduct,
-      peso: `${newProduct.peso}KG`,
-      preco: `$${newProduct.preco}`,
+      weight: `${newProduct.weight}KG`,
+      price: `R$${newProduct.price}`,
     };
 
     // Retornar o produto adicionado com um status 201
@@ -148,7 +148,7 @@ router.get("/products", (req, res) => {
 // Definindo a rota para atualizar um produto
 router.put("/products/:id", (req, res) => {
   // Extrair os dados do corpo da requisição
-  const { nome, descricao, preco, quantidade, peso, disponibilidade } =
+  const { name, description, price, quantity, weight, disponibility } =
     req.body;
 
   // Extrair o ID do produto da URL
@@ -163,27 +163,34 @@ router.put("/products/:id", (req, res) => {
   } else {
     // Validar os dados do produto
     if (
-      !validations.dataValidationName({ nome }) ||
-      !validations.dataValidationPrice({ preco }) ||
-      !validations.dataValidationQuantity({ quantidade }) ||
-      !validations.dataValidationWeight({ peso }) ||
-      !validations.dataValidationDisponibility({ disponibilidade })
+      !validations.dataValidationName({ name }) ||
+      !validations.dataValidationPrice({ price }) ||
+      !validations.dataValidationQuantity({ quantity }) ||
+      !validations.dataValidationWeight({ weight }) ||
+      !validations.dataValidationDisponibility({ disponibility })
     ) {
       // Se os dados forem inválidos, retornar um erro 400
       res.status(400).json({ message: "Dados inválidos" });
     } else {
       // Atualizar os dados do produto
-      product.nome = nome;
-      product.descricao = descricao;
-      product.preco = preco;
-      product.quantidade = quantidade;
-      product.peso = peso;
-      product.disponibilidade = disponibilidade;
+      product.name = name;
+      product.description = description;
+      product.price = price;
+      product.quantity = quantity;
+      product.weight = weight;
+      product.disponibility = disponibility;
+
+      // Formatatar o produto para exibição
+  const formattedProduct = {
+    ...product,
+    weight: `${product.weight}KG`,
+    price: `R$${product.price}`,
+  };
 
       // Retornar o produto atualizado com um status 200
       res
         .status(200)
-        .json({ message: "Produto atualizado!", product: product });
+        .json({ message: "Produto atualizado!", product: formattedProduct });
     }
   }
 });

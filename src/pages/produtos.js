@@ -211,13 +211,8 @@ router.delete("/products/:id", (req, res) => {
 });
 
 // Definir a porta do servidor
-let port = 7777;
-
-// Iniciar o servidor
-app.use('/api', router);
-app.listen(port, () => {
-  console.log(`Meu server de produtos está ligado!`);
-});
+const PORT = 3000;
+app.listen(PORT);
 
 module.exports = router
 module.exports.getProducts = () => {

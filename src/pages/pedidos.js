@@ -16,14 +16,34 @@ router.post("/orders", (req, res) => {
   const { getProducts } = require("./produtos");
   const products = getProducts();
 
-  TODO; /* :Implemente a lógica para criar um pedido com base nos produtos selecionados pelo usuário. Criar um novo pedido deve incluir a lista de produtos selecionados e o valor total do pedido.*/
+  // Obter produtos selecionados pelo usuário
+  const selectedProducts = req.body.products;
 
-  TODO; /* Valor total do produto se baseia na lógica  de que o valor total é a soma dos valores dos produtos selecionados.
- Logo tenho que fazer pedidos * valor. */
+  // Verificar se os produtos selecionados existem
+  const validProducts = selectedProducts.filter((productId) =>
+    products.find((product) => product.id === productId)
+  );
+
+  if (validProducts.length != selectedProducts.length) {
+    return res.status(400).json({
+      message: "Produtos inválidos!",
+    });
+  }
+
+  // Calcular o valor total do pedido
+  const totalPrice = validProducts.reduce((acc, productId) => {
+    const product = products.find((product) => product.id === productId);
+    return acc + product.price * req.body.quantity;
+  }, 0);
 
   // Criamos um novo pedido
   const { quantity, adress, description } = req.body;
-  const newOrder = { id: orders.length + 1, ...req.body, products };
+  const newOrder = {
+    id: orders.length + 1,
+    ...req.body,
+    products: validProducts,
+    totalPrice,
+  };
 
   // Verificamos se o pedido já existe
   if (

@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const validations = require("../components/validations");
-
 const app = express();
 const router = express.Router();
 
+const validations = require("../components/validations");
+
+// Configurando o servidor para usar o Body-Parser
 app.use(bodyParser.json());
 
+// Armazenamento de produtos
 const products = [];
 
 // Função para validar dados de produto

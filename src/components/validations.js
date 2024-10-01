@@ -1,6 +1,6 @@
 // Valida o nome do produto
 function dataValidationName(product) {
-  if (typeof product.nome !== "string") {
+  if (typeof product.name !== "string") {
     return false;
   } else {
     return true;
@@ -10,7 +10,7 @@ function dataValidationName(product) {
 /* ---------------------------------------------- */
 // Valida o preço do produto
 function dataValidationPrice(product) {
-    if (typeof product.preco !== "number") {
+    if (typeof product.price !== "number") {
       return false;
     } else {
       return true;
@@ -20,7 +20,7 @@ function dataValidationPrice(product) {
 /* ---------------------------------------------- */
 // Valida a quantidade do produto
   function dataValidationQuantity(product) {
-    if (typeof product.quantidade !== "number") {
+    if (typeof product.quantity !== "number") {
       return false;
     } else {
       return true;
@@ -30,7 +30,7 @@ function dataValidationPrice(product) {
 /* ---------------------------------------------- */
 // Valida o peso do produto
   function dataValidationWeight(product) {
-    if (typeof product.peso !== "number") {
+    if (typeof product.weight !== "number") {
       return false;
     } else {
       return true;
@@ -40,7 +40,7 @@ function dataValidationPrice(product) {
 /* ---------------------------------------------- */
 // Valida se o produto tem disponibilidade ou não
   function dataValidationDisponibility(product) {
-    if (typeof product.disponibilidade !== "boolean") {
+    if (typeof product.disponibility !== "boolean") {
       return false;
     } else {
       return true;
